@@ -12,7 +12,7 @@
 
 % You don't need to change these.
 \course{CS181-S18}
-\assignment{Assignment \#1, v1.3}
+\assignment{Assignment \#1, v1.4}
 \duedate{11:59pm February 2, 2018}
 
 \usepackage[OT1]{fontenc}
@@ -218,11 +218,11 @@ Consider the class of all polynomials of degree $K$. Each of these polynomials c
 to choose a model that both explains our current data and is able to generalize to new data. This problem explores the use of the Bayesian Information Criterion (BIC)
 for model selection. Define the $\chi^2$ (\textit{chi-squared}) error term for each model of the class as:
 
-$$\chi^2 =  \frac{1}{\sigma^2} \sum_{i=1}^N \left( y_i - \sum_{j=0}^K a_j x_i^j \right)^2 $$
+$$\chi^2 =  \frac{1}{\sigma} \sum_{i=1}^N \left( y_i - \sum_{j=0}^K a_j x_i^j \right)^2 $$
 
 \noindent Using this notation, a formulation of the BIC can be written as: 
 
-$$-\ln P({x_i,y_i} | \text{model class} ) \approx \frac{N}{2} \ln (2\pi \sigma^2) - \sum_{i=1}^N \ln p(x_i) + \frac{1}{2} \chi^2_{min} + \frac{K}{2} \ln N $$ \\
+$$-\ln P({x_i,y_i} | \text{model class} ) \approx \frac{N}{2} \ln (2\pi \sigma^2) - \sum_{i=1}^N \ln p(x_i) + \frac{1}{2} \chi^2_{min} + \frac{K+1}{2} \ln N $$ \\
 
 \noindent where $\chi^2_{min}(K)$ denote the minimum value of the $\chi^2$ over the set of polynomial models with $K$ parameters. 
 Finally, assume that $x_i \sim Unif(-5,5)$ and that each $a_j \sim Unif(-1,1)$. Let $K_{true} = 10$.
@@ -233,7 +233,7 @@ Finally, assume that $x_i \sim Unif(-5,5)$ and that each $a_j \sim Unif(-1,1)$. 
             \begin{enumerate}
                 \item Generate a polynomial $f(x) = \sum_{j = 0}^{K_{true}} a_j x^j$ 
                 \item Sample $N$ points $x_i$
-                \item Compute $y_i = f(x_i) + \epsilon_i$ where $\epsilon$ is sampled from $\mathcal{N}(0, \sigma^2 = \frac{ \max_i f(x_i) - \min_i f(x_i) }{10})$.
+                \item Compute $y_i = f(x_i) + \epsilon_i$ where $\epsilon$ is sampled from $\mathcal{N}(0, \sigma^2)$ with $\sigma = \frac{ \max_i f(x_i) - \min_i f(x_i) }{10}$.
             \end{enumerate}
         
         \item[(b)] For a set of $y_i$ generated above and a given $K$, write a function that minimizes $\chi^2$ for a polynomial of degree $K$ by solving for $\mathbf{a}$ using
